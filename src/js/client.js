@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import Rex from './components/Rex'
 import store from './store'
-import reducer, { input, sign, clear, allclear } from './reducers'
+import reducer, { input, sign, read, clear, allclear } from './reducers'
 console.clear()
 console.log('Starting...')
 
@@ -29,6 +29,7 @@ store.dispatch(input('.'))
 store.dispatch(input('5'))
 store.dispatch(input('6'))
 store.dispatch(input('7'))
+store.dispatch(read())
 // store.dispatch(allclear())
 
 console.dir(store.getState())

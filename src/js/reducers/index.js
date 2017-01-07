@@ -34,14 +34,27 @@ function toggleBufSign(b) {
 }
 
 const initialBuffer = '0'
-const initialValue = '0'
-const initialState = { buffer: initialBuffer }
+const initialValue = 0
+const initialState = { buffer: initialBuffer, value: initialValue }
 const reducer = createReducer({
-  [input]: (state, payload) => ({ ...state, buffer: formatBuf(state.buffer + payload) }),
-  [sign]: (state) => ({ ...state, buffer: toggleBufSign(state.buffer) }),
-  [clear]: (state) => ({ ...state, buffer: initialBuffer }),
+  [input]: (state, payload) => ({
+    ...state,
+    buffer: formatBuf(state.buffer + payload)
+  }),
+  [sign]: (state) => ({
+    ...state,
+    buffer: toggleBufSign(state.buffer)
+  }),
+  [read]: (state) => ({
+    ...state,
+    value: parseFloat(state.buffer)
+  }),
+  [clear]: (state) => ({
+    ...state,
+    buffer: initialBuffer
+  }),
   [allclear]: (state) => initialState
 }, initialState);
 
-export { input, sign, clear, allclear }
+export { input, sign, read, clear, allclear }
 export default reducer
