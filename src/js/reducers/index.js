@@ -7,9 +7,9 @@ const clear = createAction('Clear the buffer')
 const input = createAction('Append numeric data to the buffer')
 const sign = createAction('Toggle sign of current buffer')
 const read = createAction('Store value from the buffer')
-// const write = createAction('Send stored value to the buffer')
+const write = createAction('Send stored value to the buffer')
+const operator = createAction('Handle input of various operators')
 
-// const operator = createAction('Store pending operator')
 // const compute = createAction('Apply buffer value to stored value using stored operation ')
 // 
 // const add = createAction('Add current value to stored value');
@@ -33,13 +33,53 @@ function toggleBufSign(b) {
   return b.charAt(0) === '-' ? b.substring(1) : '-' + b
 }
 
-const initialBuffer = '0'
+function computeNextValue(state) {
+  switch(state.operator) {
+    // Only one-line returns here
+    case '+':
+      return state.value + parseFloat(state.buffer)
+    case '-':
+      return state.value - parseFloat(state.buffer)
+    case '*':
+      return state.value * parseFloat(state.buffer)
+    case '/': 
+      return state.value / parseFloat(state.buffer)
+    case '=': 
+    default:
+      // Consider adding exception here later...
+      return parseFloat(state.buffer)
+  }
+}
+
+function handleOperator( state, payload ) {
+  let nextValue = computeNextValue(state)
+  let nextOperator = payload
+  let nextBuffer = nextValue.toString()
+  return {
+    ...state,
+    buffer: nextBuffer,
+    value: nextValue,
+    operator: nextOperator,
+    bufToReset: true
+  }
+}
+
 const initialValue = 0
-const initialState = { buffer: initialBuffer, value: initialValue }
+const initialBuffer = initialValue.toString()
+const initialOperator = '='
+const initialBufToReset = false
+const initialState = {
+  buffer: initialBuffer,
+  value: initialValue,
+  operator: initialOperator,
+  bufToReset: initialBufToReset,
+}
+
 const reducer = createReducer({
   [input]: (state, payload) => ({
     ...state,
-    buffer: formatBuf(state.buffer + payload)
+    buffer: state.bufToReset ? formatBuf(payload) : formatBuf(state.buffer + payload),
+    bufToReset: false
   }),
   [sign]: (state) => ({
     ...state,
@@ -49,6 +89,11 @@ const reducer = createReducer({
     ...state,
     value: parseFloat(state.buffer)
   }),
+  [write]: (state) => ({
+    ...state,
+    buffer: state.value.toString()
+  }),
+  [operator]: ( state, payload ) => handleOperator( state, payload ),
   [clear]: (state) => ({
     ...state,
     buffer: initialBuffer
@@ -56,5 +101,5 @@ const reducer = createReducer({
   [allclear]: (state) => initialState
 }, initialState);
 
-export { input, sign, read, clear, allclear }
+export { input, sign, read, write, operator, clear, allclear }
 export default reducer
