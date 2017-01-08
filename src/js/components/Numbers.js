@@ -21,6 +21,7 @@ const Numbers = () => (
       <Key code="3">3</Key>
     </Set>
     <Set>
+      {/* TODO: <Key code="!" id="sign">-</Key> */}
       <Key code="0" id="zero">0</Key>
       <Key code="." id="decimal">.</Key>
     </Set>

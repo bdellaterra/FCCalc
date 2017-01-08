@@ -16,7 +16,7 @@ const maxBufLen = 14
 function formatBuf(b) {
   // remove unnecessary leading zeros,
   // accounting for possible negative sign
-  b = b.replace( /^(-)?0(\d)/, '$1$2' )
+  b = b.replace( /^(-)?0(\d+)/, '$1$2' )
   // remove all but first decimal
   b = b.replace('.', '~').replace(/\./, '').replace('~', '.')
   return b.slice(0, maxBufLen)
@@ -28,6 +28,7 @@ function toggleBufSign(b) {
 }
 
 
+// TODO: Handle operator precedence
 function computeNextValue(state) {
   switch(state.operator) {
     // Only one-line returns here

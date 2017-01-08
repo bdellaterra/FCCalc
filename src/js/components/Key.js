@@ -23,6 +23,10 @@ export default class Key extends Component {
         store.dispatch(input(this.props.code))
         break
       }
+      case '!': {
+        store.dispatch(sign())
+        break
+      }
       case '+':
       case '-':
       case '*':
