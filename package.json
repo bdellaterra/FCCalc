@@ -32,6 +32,6 @@
     "build": "webpack"
   },
   "author": "Brian Dellaterra",
-  "license": "UNLICENSED",
+  "license": "LGPL-3.0",
   "private": true
 }
