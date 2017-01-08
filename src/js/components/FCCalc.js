@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
-import styles from '../../css/FCCalc.css'
 import Col from './Col.js'
 import LCD from './LCD.js'
 import Numbers from './Numbers.js'
@@ -13,7 +11,7 @@ class FCCalc extends Component {
     return (
       <div className="calculator">
         <Row>
-          <LCD value={this.props.value} />
+          <LCD display={this.props.display} />
         </Row>
         <Row>
           <Col>
@@ -26,6 +24,11 @@ class FCCalc extends Component {
       </div>
     )
   }
+}
+
+FCCalc.propTypes = {
+  display: React.PropTypes.string,
+  children: React.PropTypes.node
 }
 
 export default FCCalc
