@@ -1,21 +1,13 @@
 import { combineReducers as combine } from 'redux'
 import { createAction, createReducer } from 'redux-act'
 
-const allclear = createAction('Completely reset all stored data')
-
-const clear = createAction('Clear the buffer')
 const input = createAction('Append numeric data to the buffer')
 const sign = createAction('Toggle sign of current buffer')
 const read = createAction('Store value from the buffer')
 const write = createAction('Send stored value to the buffer')
 const operator = createAction('Handle input of various operators')
-
-// const compute = createAction('Apply buffer value to stored value using stored operation ')
-// 
-// const add = createAction('Add current value to stored value');
-// const subtract = createAction('Subtract current value from stored value');
-// const multiply = createAction('Multiply stored value by current value');
-// const divide = createAction('Divide stored value by current value');
+const clear = createAction('Clear the buffer')
+const allclear = createAction('Completely reset all stored data')
 
 
 // Build string buffer as number keys are pressed,
@@ -30,9 +22,11 @@ function formatBuf(b) {
   return b.slice(0, maxBufLen)
 }
 
+
 function toggleBufSign(b) {
   return b.charAt(0) === '-' ? b.substring(1) : '-' + b
 }
+
 
 function computeNextValue(state) {
   switch(state.operator) {
@@ -52,6 +46,7 @@ function computeNextValue(state) {
   }
 }
 
+
 // TODO: Error for results that can't be displayed properly on LCD
 function handleOperator( state, payload ) {
   let nextValue = computeNextValue(state)
@@ -66,6 +61,7 @@ function handleOperator( state, payload ) {
   }
 }
 
+
 const initialValue = 0
 const initialBuffer = formatBuf(initialValue.toString())
 const initialOperator = '='
@@ -76,6 +72,7 @@ const initialState = {
   operator: initialOperator,
   bufToReset: initialBufToReset,
 }
+
 
 const reducer = createReducer({
   [input]: (state, payload) => ({
@@ -102,6 +99,7 @@ const reducer = createReducer({
   }),
   [allclear]: (state) => initialState
 }, initialState);
+
 
 export { input, sign, read, write, operator, clear, allclear }
 export default reducer
