@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 
-export default class LCD extends Component {
+class LCD extends Component {
   render() {
     return (
-      <div className="lcd">{this.props.value}</div>
+      <div className="lcd">{this.props.display}</div>
     )
   }
 }
 
-// Key.propTypes = {
-//   id: React.PropTypes.string,
-//   children: React.PropTypes.node
-// }
+LCD.propTypes = {
+  display: React.PropTypes.string,
+  children: React.PropTypes.node
+}
+
+export default LCD
