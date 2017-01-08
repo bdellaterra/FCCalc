@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
-import Rex from './components/Rex'
+import FCCalc from './components/FCCalc'
 import store from './store'
 import reducer, { input, sign, read, write, operator, clear, allclear } from './reducers'
 console.clear()
@@ -11,8 +11,8 @@ console.log('Starting...')
 // ReactDOM.render(<App />, document.getElementById('App');
 function subscriber() {
   render(
-    <Rex />,
-    document.getElementById("Rex")
+    <FCCalc value={store.getState().buffer} />,
+    document.getElementById("FCCalc")
   )
 }
 
@@ -42,7 +42,6 @@ store.dispatch(operator('='))
 
 console.dir(store.getState())
 
-store.dispatch(allclear())
 // store.dispatch(allclear())
 
 console.dir(store.getState())

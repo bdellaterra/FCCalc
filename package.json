@@ -1,7 +1,7 @@
 {
-  "name": "Rex",
+  "name": "FCCalc",
   "version": "0.1.0",
-  "description": "Rex react app",
+  "description": "FCCalc react app",
   "main": "client.js",
   "dependencies": {
     "react": "^15.4.0",

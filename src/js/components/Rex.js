@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import styles from '../../css/Rex.css'
+import styles from '../../css/FCCalc.css'
 
-class Rex extends Component {
+class FCCalc extends Component {
   render() {
-    return <div>Hello from Rex!</div>;
+    return <div>{this.props.value}</div>;
   }
 }
 
-export default Rex
+export default FCCalc
