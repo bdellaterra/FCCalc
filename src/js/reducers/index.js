@@ -20,13 +20,14 @@ const operator = createAction('Handle input of various operators')
 
 // Build string buffer as number keys are pressed,
 // applying formatting rules to preserve validity
+const maxBufLen = 14
 function formatBuf(b) {
   // remove unnecessary leading zeros,
   // accounting for possible negative sign
   b = b.replace( /^(-)?0(\d)/, '$1$2' )
   // remove all but first decimal
   b = b.replace('.', '~').replace(/\./, '').replace('~', '.')
-  return b
+  return b.slice(0, maxBufLen)
 }
 
 function toggleBufSign(b) {
@@ -51,10 +52,11 @@ function computeNextValue(state) {
   }
 }
 
+// TODO: Error for results that can't be displayed properly on LCD
 function handleOperator( state, payload ) {
   let nextValue = computeNextValue(state)
   let nextOperator = payload
-  let nextBuffer = nextValue.toString()
+  let nextBuffer = formatBuf(nextValue.toString())
   return {
     ...state,
     buffer: nextBuffer,
@@ -65,7 +67,7 @@ function handleOperator( state, payload ) {
 }
 
 const initialValue = 0
-const initialBuffer = initialValue.toString()
+const initialBuffer = formatBuf(initialValue.toString())
 const initialOperator = '='
 const initialBufToReset = false
 const initialState = {
@@ -91,7 +93,7 @@ const reducer = createReducer({
   }),
   [write]: (state) => ({
     ...state,
-    buffer: state.value.toString()
+    buffer: formatBuf(state.value.toString())
   }),
   [operator]: ( state, payload ) => handleOperator( state, payload ),
   [clear]: (state) => ({
