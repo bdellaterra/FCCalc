@@ -19,12 +19,13 @@ function formatBuf(b) {
   b = b.replace( /^(-)?0(\d+)/, '$1$2' )
   // remove all but first decimal
   b = b.replace('.', '~').replace(/\./, '').replace('~', '.')
+  // Return string, respecting character-limit
   return b.slice(0, maxBufLen)
 }
 
 
 function toggleBufSign(b) {
-  return b.charAt(0) === '-' ? b.substring(1) : '-' + b
+  return formatBuf( b.charAt(0) === '-' ? b.substring(1) : '-' + b )
 }
 
 
@@ -42,7 +43,7 @@ function computeNextValue(state) {
       return state.value / parseFloat(state.buffer)
     case '=': 
     default:
-      // Consider adding exception here later...
+      // Consider adding missing-type exception here later...
       return parseFloat(state.buffer)
   }
 }
@@ -93,12 +94,12 @@ const reducer = createReducer({
     ...state,
     buffer: formatBuf(state.value.toString())
   }),
-  [operator]: ( state, payload ) => handleOperator( state, payload ),
+  [operator]: handleOperator,
   [clear]: (state) => ({
     ...state,
     buffer: initialBuffer
   }),
-  [allclear]: (state) => initialState
+  [allclear]: state => initialState
 }, initialState);
 
 
