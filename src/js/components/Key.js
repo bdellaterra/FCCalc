@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import store from '../store'
-import reducer, { input, sign, read, write, operator, clear, allclear } from '../reducers'
+import { input, operator, clear, allclear } from '../reducers'
 
 
 export default class Key extends Component {

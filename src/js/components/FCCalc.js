@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-import Col from './Col.js'
-import LCD from './LCD.js'
-import Numbers from './Numbers.js'
-import Operators from './Operators.js'
-import Row from './Row.js'
+import Col from './Col'
+import LCD from './LCD'
+import Numbers from './Numbers'
+import Operators from './Operators'
+import Row from './Row'
 
 class FCCalc extends Component {
   render() {
