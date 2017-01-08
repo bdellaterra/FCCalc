@@ -9,6 +9,26 @@ const operator = createAction('Handle input of various operators')
 const clear = createAction('Clear the buffer')
 const allclear = createAction('Completely reset all stored data')
 
+const initialValue = 0
+const initialBuffer = formatBuf(initialValue.toString())
+const initialOperator = '='
+const initialBufToReset = false
+
+const initialState = {
+  buffer: initialBuffer,
+  value: initialValue,
+  operator: initialOperator,
+  bufToReset: initialBufToReset,
+}
+
+const errorBuffer = 'Err'
+const errorState = {
+  buffer: errorBuffer,
+  value: initialValue,
+  operator: initialOperator,
+  bufToReset: true,
+}
+
 
 // Build string buffer as number keys are pressed,
 // applying formatting rules to preserve validity
@@ -49,30 +69,28 @@ function computeNextValue(state) {
 }
 
 
-// TODO: Error for results that can't be displayed properly on LCD
+function handleError(state) {
+  let hasError = 0
+  // Number too large
+  if ( state.value.toString().split('.')[0].length > maxBufLen ) {
+    hasError = 1
+  }
+  return hasError ? errorState : state
+}
+
+
 function handleOperator( state, payload ) {
   let nextValue = computeNextValue(state)
   let nextOperator = payload
   let nextBuffer = formatBuf(nextValue.toString())
-  return {
+  let nextState = handleError({
     ...state,
     buffer: nextBuffer,
     value: nextValue,
     operator: nextOperator,
     bufToReset: true
-  }
-}
-
-
-const initialValue = 0
-const initialBuffer = formatBuf(initialValue.toString())
-const initialOperator = '='
-const initialBufToReset = false
-const initialState = {
-  buffer: initialBuffer,
-  value: initialValue,
-  operator: initialOperator,
-  bufToReset: initialBufToReset,
+  })
+  return nextState
 }
 
 
@@ -99,7 +117,7 @@ const reducer = createReducer({
     ...state,
     buffer: initialBuffer
   }),
-  [allclear]: state => initialState
+  [allclear]: () => initialState
 }, initialState);
 
 
