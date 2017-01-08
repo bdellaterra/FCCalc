@@ -1,20 +1,19 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider } from 'react-redux'
 
+import styles from '../css/FCCalc.css'
 import FCCalc from './components/FCCalc'
 import store from './store'
 import reducer, { input, sign, read, write, operator, clear, allclear } from './reducers'
 
 
-// ReactDOM.render(<App />, document.getElementById('App');
-function subscriber() {
+function watcher() {
   render(
-    <FCCalc value={store.getState().buffer} />,
+    <FCCalc display={store.getState().buffer} />,
     document.getElementById("FCCalc")
   )
 }
 
-store.subscribe(subscriber)
-store.dispatch(operator('='))
+store.subscribe(watcher)
+watcher()
 
