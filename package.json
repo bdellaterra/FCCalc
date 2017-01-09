@@ -29,6 +29,5 @@
     "build": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors"
   },
   "author": "Brian Dellaterra",
-  "license": "LGPL-3.0",
-  "private": true
+  "license": "LGPL-3.0"
 }
