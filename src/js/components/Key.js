@@ -7,7 +7,6 @@ import { input, operator, clear, allclear } from '../reducers'
 export default class Key extends Component {
 
   handleClick() {
-    console.log(this.props.code)
     switch(this.props.code) {
       case '0':
       case '1':
