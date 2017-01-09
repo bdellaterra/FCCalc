@@ -1,7 +1,6 @@
-const debug = process.env.NODE_ENV !== "production"
+const debug = process.env.NODE_ENV !== 'production'
 const webpack = require('webpack')
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -27,17 +26,16 @@ module.exports = {
       },
       {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-        loader: "file"
+        loader: 'file'
       },
       {
         test: /\.css$/,
         include: path.resolve(__dirname, 'src'),
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+        loader: 'file'
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
       filename: 'index.html'
