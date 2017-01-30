@@ -7,7 +7,7 @@ const read = createAction('Store value from the buffer')
 const write = createAction('Send stored value to the buffer')
 const operator = createAction('Handle input of various operators')
 const clear = createAction('Clear the buffer')
-const allclear = createAction('Completely reset all stored data')
+const allclear = createAction('Completely reset all state')
 
 const initialValue = 0
 const initialBuffer = formatBuf(initialValue.toString())
@@ -29,10 +29,11 @@ const errorState = {
   bufWillReset: true,
 }
 
+const maxBufLen = 14
+
 
 // Build string buffer as number keys are pressed,
 // applying formatting rules to preserve validity
-const maxBufLen = 14
 function formatBuf(b) {
   // remove unnecessary leading zeros,
   // accounting for possible negative sign
@@ -100,11 +101,11 @@ const reducer = createReducer({
     buffer: state.bufWillReset ? formatBuf(payload) : formatBuf(state.buffer + payload),
     bufWillReset: false
   }),
-  [sign]: (state) => ({
-    // Not Yet Implemented
-    ...state,
-    buffer: toggleBufSign(state.buffer)
-  }),
+  // TODO: Implement sign key
+  // [sign]: (state) => ({
+  //   ...state,
+  //   buffer: toggleBufSign(state.buffer)
+  // }),
   [read]: (state) => ({
     ...state,
     value: parseFloat(state.buffer)
@@ -122,5 +123,5 @@ const reducer = createReducer({
 }, initialState);
 
 
-export { input, sign, read, write, operator, clear, allclear }
+export { input, sign, read, write, operator, clear, allclear, maxBufLen, initialState }
 export default reducer

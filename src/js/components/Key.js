@@ -22,7 +22,7 @@ class Key extends Component {
         store.dispatch(input(this.props.code))
         break
       }
-      // TODO: Impliment sign key
+      // TODO: Implement sign key
       // case '!': {
       //   store.dispatch(sign())
       //   break
