@@ -12,13 +12,13 @@ const allclear = createAction('Completely reset all stored data')
 const initialValue = 0
 const initialBuffer = formatBuf(initialValue.toString())
 const initialOperator = '='
-const initialBufToReset = false
+const initialBufWillReset = false
 
 const initialState = {
   buffer: initialBuffer,
   value: initialValue,
   operator: initialOperator,
-  bufToReset: initialBufToReset,
+  bufWillReset: initialBufWillReset,
 }
 
 const errorBuffer = 'Err'
@@ -26,7 +26,7 @@ const errorState = {
   buffer: errorBuffer,
   value: initialValue,
   operator: initialOperator,
-  bufToReset: true,
+  bufWillReset: true,
 }
 
 
@@ -88,7 +88,7 @@ function handleOperator( state, payload ) {
     buffer: nextBuffer,
     value: nextValue,
     operator: nextOperator,
-    bufToReset: true
+    bufWillReset: true
   })
   return nextState
 }
@@ -97,8 +97,8 @@ function handleOperator( state, payload ) {
 const reducer = createReducer({
   [input]: (state, payload) => ({
     ...state,
-    buffer: state.bufToReset ? formatBuf(payload) : formatBuf(state.buffer + payload),
-    bufToReset: false
+    buffer: state.bufWillReset ? formatBuf(payload) : formatBuf(state.buffer + payload),
+    bufWillReset: false
   }),
   [sign]: (state) => ({
     // Not Yet Implemented
