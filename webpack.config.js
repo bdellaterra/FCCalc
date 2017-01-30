@@ -20,9 +20,6 @@ module.exports = {
         test: /\.jsx?$/,
         include: path.resolve(__dirname, 'src'),
         loader: 'babel',
-        query: {
-          presets: ['es2015', 'react', 'stage-0'],
-        }
       },
       {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
