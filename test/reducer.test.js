@@ -159,7 +159,7 @@ test("Reducer reports overflow as 'Err'.", t => {
 test('Reducer can clear the buffer.', t => {
     let state = reducer({ ...initialState, buffer: '0.123' })
     state = reducer(state, {type: clear})
-    t.deepEqual(state.buffer, '0')
+    t.deepEqual(state.buffer, initialState.buffer)
 })
 
 test('Reducer can clear all state.', t => {
