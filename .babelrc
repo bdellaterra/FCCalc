@@ -7,7 +7,6 @@
     "plugins": [
         "transform-runtime"
     ],
-    "ignore": "*test.js",
     "env": {
         "development": {
             "sourceMaps": "inline"
