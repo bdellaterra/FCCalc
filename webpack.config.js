@@ -19,11 +19,11 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: path.resolve(__dirname, 'src'),
-        loader: 'babel',
+        loader: 'babel-loader',
       },
       {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-        loader: 'file'
+        loader: 'file-loader'
       },
       {
         test: /\.css$/,
